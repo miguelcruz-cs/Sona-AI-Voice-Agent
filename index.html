@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sona AI Voice Agent — Miguel Cruz</title>
+  <meta name="description" content="Case study: Configuring a live AI voice agent using Quo's Sona feature for 24/7 hiring inquiries. Miguel Cruz — Support & Enablement Professional." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0B1623;
+      --navy-mid:   #1A2B3C;
+      --charcoal:   #2B3A4A;
+      --teal:       #3AACBF;
+      --teal-light: #5BB8CC;
+      --white:      #FFFFFF;
+      --slate:      #CBD8E4;
+      --warm-grey:  #8FA3B1;
+      --mid-slate:  #4A5F70;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--slate);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 22, 35, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(58, 172, 191, 0.12);
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-back {
+      color: var(--teal);
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.2s;
+    }
+    .nav-back:hover { opacity: 0.75; }
+
+    .nav-brand {
+      color: var(--warm-grey);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      text-decoration: none;
+    }
+    .nav-brand span { color: var(--teal); }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: var(--navy);
+      padding: 72px 40px 56px;
+      border-bottom: 1px solid rgba(58, 172, 191, 0.10);
+    }
+
+    .hero-inner {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(40px, 7vw, 72px);
+      font-weight: 700;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      line-height: 1.05;
+      margin-bottom: 32px;
+    }
+
+    /* ─── METADATA BAR ─── */
+    .meta-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(58, 172, 191, 0.15);
+      border: 1px solid rgba(58, 172, 191, 0.15);
+      border-radius: 6px;
+      overflow: hidden;
+      max-width: 780px;
+      margin: 0 auto 56px;
+    }
+
+    .meta-cell {
+      background: var(--navy-mid);
+      padding: 16px 24px;
+    }
+
+    .meta-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 4px;
+    }
+
+    .meta-value {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--white);
+      line-height: 1.4;
+    }
+
+    /* ─── CONTENT ─── */
+    .content {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+
+    .section {
+      margin-bottom: 52px;
+    }
+
+    .section-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 12px;
+    }
+
+    .section p {
+      color: var(--slate);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .section p + p { margin-top: 16px; }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(58, 172, 191, 0.12);
+      margin: 52px 0;
+    }
+
+    /* ─── ARTIFACT ─── */
+    .artifact-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 6px;
+    }
+
+    .artifact-subtitle {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--teal);
+      opacity: 0.75;
+      margin-bottom: 20px;
+    }
+
+    .artifact-image {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 32px rgba(0, 0, 0, 0.35);
+      display: block;
+      border: 1px solid rgba(58, 172, 191, 0.12);
+    }
+
+    /* ─── SETUP GUIDE (Scribe) ─── */
+    .setup-guide-block {
+      background: var(--navy-mid);
+      border: 1px solid rgba(58, 172, 191, 0.18);
+      border-radius: 8px;
+      padding: 28px 32px;
+      margin-top: 36px;
+    }
+
+    .setup-guide-block h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .setup-guide-block p {
+      font-size: 14px;
+      color: var(--slate);
+      margin-bottom: 16px;
+      line-height: 1.65;
+    }
+
+    /* ─── STEPS (from Scribe) ─── */
+    .steps-section {
+      margin-top: 52px;
+    }
+
+    .steps-section h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(58, 172, 191, 0.08);
+    }
+    .step:last-child { border-bottom: none; }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(58, 172, 191, 0.12);
+      border: 1px solid rgba(58, 172, 191, 0.30);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--teal);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step-content p {
+      font-size: 15px;
+      color: var(--slate);
+      line-height: 1.7;
+    }
+
+    .step-note {
+      margin-top: 8px;
+      padding: 10px 14px;
+      background: rgba(58, 172, 191, 0.06);
+      border-left: 2px solid var(--teal);
+      border-radius: 0 4px 4px 0;
+      font-size: 13px;
+      color: var(--warm-grey);
+      font-style: italic;
+    }
+
+    /* ─── TRY IT LIVE ─── */
+    .try-live {
+      background: linear-gradient(135deg, #1A2B3C 0%, #0F1E2E 100%);
+      border: 1px solid rgba(58, 172, 191, 0.25);
+      border-radius: 8px;
+      padding: 28px 32px;
+      margin-top: 36px;
+    }
+
+    .try-live h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .try-live p {
+      font-size: 14px;
+      color: var(--slate);
+      line-height: 1.7;
+      margin-bottom: 6px;
+    }
+
+    .try-live .note {
+      font-size: 13px;
+      color: var(--warm-grey);
+    }
+
+    /* ─── CTAs ─── */
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 48px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 22px;
+      border-radius: 6px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    .btn-primary {
+      background: var(--teal);
+      color: var(--white);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--teal);
+      border: 1px solid rgba(58, 172, 191, 0.40);
+    }
+
+    .btn-tertiary {
+      background: transparent;
+      color: var(--warm-grey);
+      border: 1px solid rgba(143, 163, 177, 0.25);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid rgba(58, 172, 191, 0.10);
+      padding: 32px 40px;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--warm-grey);
+    }
+
+    footer a {
+      color: var(--teal);
+      text-decoration: none;
+    }
+    footer a:hover { text-decoration: underline; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      nav { padding: 14px 20px; }
+      .hero { padding: 48px 20px 40px; }
+      .content { padding: 0 20px 60px; }
+      .meta-bar { grid-template-columns: 1fr; }
+      .cta-row { flex-direction: column; }
+      footer { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="https://mpascualcruz.com/#work" class="nav-back">← Back to Work</a>
+    <a href="https://mpascualcruz.com" class="nav-brand">Miguel Cruz · <span>mpascualcruz.com</span></a>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-inner">
+      <h1>Sona AI Voice Agent</h1>
+    </div>
+  </header>
+
+  <!-- METADATA BAR -->
+  <div style="max-width:780px;margin:0 auto;padding:0 40px;">
+    <div class="meta-bar">
+      <div class="meta-cell">
+        <div class="meta-label">Category</div>
+        <div class="meta-value">AI Integration</div>
+      </div>
+      <div class="meta-cell">
+        <div class="meta-label">Tools Used</div>
+        <div class="meta-value">Quo (Sona AI), Scribe, CleanShot X, ElevenLabs, Claude</div>
+      </div>
+      <div class="meta-cell">
+        <div class="meta-label">Year</div>
+        <div class="meta-value">2026</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="content">
+
+    <!-- CONTEXT -->
+    <div class="section">
+      <div class="section-label">Context</div>
+      <p>Most portfolios end at a contact form. I wanted to go further — so I built one you can actually call. Sona is an AI voice agent feature inside Quo, a communications and CRM platform previously known as OpenPhone. Quo is built for small businesses, but its AI capabilities are powerful enough for individuals, growing teams, and larger organizations — the use cases scale with whoever is deploying it. For this portfolio, I configured Sona as a live hiring agent available 24/7, across any time zone. If you're in Europe or Japan and want to learn about my background before we ever connect directly, call. The tool is Quo's. The setup, the architecture, and the thinking behind it — that's the case study.</p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- APPROACH -->
+    <div class="section">
+      <div class="section-label">Approach</div>
+      <p>Configured Sona on a live Montreal number through the Quo platform, designed to field hiring inquiries around the clock. The core work was in the knowledge architecture: three structured pages that define what the agent knows — a core professional bio, a breakdown of work experience and AI capabilities, and a clear scope of what I'm open to and how to reach me.</p>
+      <p>The call flow was built with intentional fallbacks: escalation handling for callers who ask to speak with someone directly, message capture for requests outside scope, lead qualification for prospective opportunities, and voicemail as a final fallback. Caller history is enabled so repeat callers don't have to re-introduce themselves. The greeting was written to orient callers immediately — who they've reached, what Sona can help with, and where to go to book time directly. As voice AI matures, this same architecture becomes the foundation for multilingual support — something already on the roadmap for future iterations.</p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- OUTCOME -->
+    <div class="section">
+      <div class="section-label">Outcome</div>
+      <p>The live agent removes a real friction point for international and remote-first hiring teams who may never share a time zone with a candidate. A recruiter in London or a founder in Singapore can call, ask about role fit, and get substantive answers without waiting for a response window. The implementation also demonstrates exactly the skill set relevant to support operations and AI-forward roles — building knowledge architecture, defining agent scope, designing escalation paths, and evaluating agent quality the same way you'd evaluate a human support rep. Every decision made in configuring Sona maps directly to decisions made when deploying AI tools in a global support environment.</p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- THE ARTIFACT -->
+    <div class="section">
+      <div class="artifact-label">The Artifact</div>
+      <div class="artifact-subtitle">Sona Call Flow Configuration. Knowledge Architecture and Call Flow Built on Quo's Sona AI Feature.</div>
+      <img
+        src="sona-ai-voice-agent.png"
+        alt="Sona AI Voice Agent — call flow and knowledge architecture screenshot"
+        class="artifact-image"
+      />
+
+      <!-- TRY IT LIVE -->
+      <div class="try-live">
+        <h3>Try It Live</h3>
+        <p>Call <strong style="color:var(--teal);">(438) 801-1115</strong> and ask Sona anything about my background, availability, or approach. Available 24/7 — including from outside North America. If you're in a different time zone and want to do an initial screening before we connect directly, this is built for that.</p>
+        <p class="note">Want to configure this for your own business or team? The full step-by-step setup guide is available via the link below.</p>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- SETUP GUIDE -->
+    <div class="steps-section">
+      <div class="section-label">Setup Guide</div>
+      <h2>Configuring Sona: Step-by-Step</h2>
+      <p style="color:var(--slate);margin-bottom:28px;font-size:15px;">The following walkthrough documents exactly how this was configured in Quo. The full interactive guide with annotated screenshots is available via Scribe (link below).</p>
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <p>Navigate to your Quo workspace on a desktop browser. Confirm you have the appropriate user permissions and plan type to edit number and call flow settings.</p>
+          <div class="step-note">Additional AI features (including Sona) require the Business or Scale plan.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <p>Click <strong style="color:var(--white);">Settings</strong> to access workspace settings.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <p>Navigate to the <strong style="color:var(--white);">Phone numbers</strong> section and locate the number you want to configure Sona for. Sona must be configured per number.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <p>For this case study, the <strong style="color:var(--white);">Montreal (io)</strong> number was selected as the live portfolio contact line.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <p>Click <strong style="color:var(--white);">Call flow</strong> in the number settings, then click <strong style="color:var(--white);">Edit call flow</strong>.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <p>Drag and drop <strong style="color:var(--white);">Sona</strong> from the AI section on the right panel into your call flow. Sona can be placed at any point — in this setup, all incoming calls route directly to Sona, with a voicemail fallback.</p>
+          <div class="step-note">Sona can also sit behind a phone menu (IVR), answering only callers who select a specific option — useful for larger teams.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">7</div>
+        <div class="step-content">
+          <p>Click into the Sona block to expand customization options. The right panel will update to show the <strong style="color:var(--white);">Greeting</strong> field — this is the first thing callers hear. Write it to orient them immediately: who they've reached, what Sona can help with, and how to book time.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">8</div>
+        <div class="step-content">
+          <p>Build your <strong style="color:var(--white);">Knowledge</strong> documents. These define everything Sona can answer. You can create pages manually, paste content from another AI tool, or upload existing documents. Each page has a 20,000-character limit.</p>
+          <div class="step-note">For this portfolio, three knowledge pages were created: (1) Professional bio and background, (2) Work experience and AI capabilities, (3) Scope, availability, and how to reach me.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">9</div>
+        <div class="step-content">
+          <p>Configure <strong style="color:var(--white);">Jobs</strong> — specific instructions Sona follows when certain scenarios occur. Jobs handle edge cases: escalation requests, message capture for out-of-scope questions, and lead qualification for potential opportunities.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">10</div>
+        <div class="step-content">
+          <p>In the <strong style="color:var(--white);">Shared with Sona</strong> section, toggle on all Knowledge pages you want the agent to use. Forgetting this step means Sona has no context to draw from — it will answer generically or not at all.</p>
+          <div class="step-note">This is the most commonly missed step. Always verify before going live.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">11</div>
+        <div class="step-content">
+          <p>Save all changes and return to the phone number settings. After your first caller, check the inbox under the configured number. Use the call records and filters to review transcripts and verify Sona is responding accurately.</p>
+        </div>
+      </div>
+
+      <!-- Scribe CTA -->
+      <div class="setup-guide-block" style="margin-top:32px;">
+        <h3>Full Guide with Annotated Screenshots</h3>
+        <p>The complete step-by-step walkthrough — including UI screenshots at each stage — is available via Scribe. Each step is annotated with callouts showing exactly where to click.</p>
+        <a href="https://scribehow.com/viewer/Configuring_Sona_Call_Flow_and_Knowledge_Settings__6AUpAAPNQ0a1zIK58qboAg" target="_blank" rel="noopener" class="btn btn-secondary">Read Setup Guide →</a>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- CTAs -->
+    <div class="cta-row">
+      <a href="https://mpascualcruz.com/#work" class="btn btn-primary">← Back to Portfolio</a>
+      <a href="https://github.com/miguelcruz-cs/Sona-AI-Voice-Agent" target="_blank" rel="noopener" class="btn btn-secondary">View GitHub Repository →</a>
+      <a href="https://scribehow.com/viewer/Configuring_Sona_Call_Flow_and_Knowledge_Settings__6AUpAAPNQ0a1zIK58qboAg" target="_blank" rel="noopener" class="btn btn-tertiary">Read Setup Guide →</a>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Miguel Cruz · <a href="https://mpascualcruz.com">mpascualcruz.com</a> · Support &amp; Enablement Systems · 2026</p>
+  </footer>
+
+</body>
+</html>
